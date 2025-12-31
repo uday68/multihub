@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info:
+  title: AI Cognitive Workspace API (MVP)
+  version: 0.1.0
+servers:
+  - url: https://api.example.com
+paths:
+  /workspaces:
+    post:
+      summary: Create a workspace
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceCreate'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+  /workspaces/{workspaceId}/prompts:
+    post:
+      summary: Create a prompt (new version)
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromptVersionCreate'
+      responses:
+        '201':
+          description: Created
+components:
+  schemas:
+    WorkspaceCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        ownerId:
+          type: string
+      required: [name, ownerId]
+    Workspace:
+      allOf:
+        - $ref: '#/components/schemas/WorkspaceCreate'
+        - type: object
+          properties:
+            _id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+    PromptVersionCreate:
+      type: object
+      properties:
+        title:
+          type: string
+        text:
+          type: string
+        reason:
+          type: string
+      required: [title, text]
+
+# Note: Add auth schemes, more endpoints and schemas (sessions, contributions, logs) as next step

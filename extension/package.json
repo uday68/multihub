@@ -1,0 +1,17 @@
+{
+  "name": "ai-workspace",
+  "displayName": "AI Workspace",
+  "publisher": "your-org",
+  "version": "0.1.0",
+  "engines": { "vscode": "^1.70.0" },
+  "activationEvents": ["onCommand:aiws.openWorkspace"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "aiws.openWorkspace", "title": "AI Workspace: Open" },
+      { "command": "aiws.createPromptVersion", "title": "AI Workspace: Create Prompt Version" }
+    ]
+  },
+  "scripts": { "build": "tsc -p ./" },
+  "dependencies": {}
+}
